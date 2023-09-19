@@ -20,12 +20,12 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ghcr.io/your-username/java-app:${{ github.sha }} .
+          docker build -t ghcr.io/USERNAME/java-app:${{ github.sha }} .
         env:
           DOCKER_BUILDKIT: 1
 
       - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u your-username --password-stdin
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
 
       - name: Push Docker Image to GitHub Container Registry
-        run: docker push ghcr.io/your-username/java-app:${{ github.sha }}
+        run: docker push ghcr.io/USERNAME/java-app:${{ github.sha }}
