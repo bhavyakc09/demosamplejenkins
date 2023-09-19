@@ -1,32 +1,31 @@
 name: CI
-
 on:
   push:
     branches:
       - main
 
 jobs:
-  build-and-push-image:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Java
+      - name: Set up Java and Maven
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      - name: Build Java application and package
         run: |
-          echo "JAVA_HOME=C:\Program Files\Java\jdk-11" >> $GITHUB_ENV
-          echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+          mvn clean package
+        working-directory: C:\Users\c.bhavya\Desktop\cicd\java-application
 
       - name: Build Docker image
         run: |
-          docker build -f dockerfile -t ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }} .
-        
-      - name: Log in to GitHub Container Registry
-        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }} .
           echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-        
-      - name: Push Docker image to GitHub Container Registry
-        run: |
           docker push ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }}
-        
+

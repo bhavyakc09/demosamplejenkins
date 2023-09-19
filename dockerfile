@@ -1,11 +1,11 @@
-# Use a base image with Java 11
-FROM openjdk:11
+# Use an OpenJDK image as the base image
+FROM openjdk:11-jre-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the application files into the container
-COPY . /app
+# Copy the JAR file (replace 'your-app.jar' with your actual JAR file)
+COPY target/javaapp.jar .
 
-# Command to run your Java application
-CMD ["java", "-jar", "java-app-1.0-SNAPSHOT.jar"]
+# Define the command to run your application
+CMD ["java", "-jar", "javaapp.jar"]
