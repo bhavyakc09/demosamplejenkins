@@ -22,12 +22,6 @@ jobs:
             
         - name: Build with Maven
           run: mvn clean install
-  
-        - name: Package the application
-          run: |
-            outputPath="javaapp.zip"
-            sourcePath="C:/Users/c.bhavya/Desktop/cicd/java-application/target/java-app-1.0-SNAPSHOT.jar"  # Adjust this path to the correct relative path.
-            zip -r $outputPath $sourcePath
         
         - name: Set up Docker
           uses: docker/setup-qemu-action@v1
