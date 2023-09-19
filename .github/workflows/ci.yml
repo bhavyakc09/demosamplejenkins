@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push-image:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+    
+    - name: Log in to GitHub Container Registry
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+    
+    - name: Determine Docker image name and tag
+      id: docker_info
+      run: echo "::set-output name=image_name::ghcr.io/${{ github.repository }}/${{ github.event.repository.name }}"
+    
+    - name: Build Docker image
+      run: docker build -t ${{ steps.docker_info.outputs.image_name }}:latest .
+    
+    - name: Push Docker image to GitHub Container Registry
+      run: docker push ${{ steps.docker_info.outputs.image_name }}:latest
