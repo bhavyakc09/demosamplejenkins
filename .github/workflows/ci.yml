@@ -19,8 +19,8 @@ jobs:
         echo "PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
 
     - name: Set up Docker
-      uses: docker/setup-qemu-action@v1
-
+      uses: docker/setup-docker@v1
+      
     - name: Build Docker image
       run: |
         USERNAME="${{ github.repository_owner }}"
