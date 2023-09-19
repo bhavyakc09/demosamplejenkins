@@ -18,14 +18,17 @@ jobs:
         echo "JAVA_HOME=/usr/lib/jvm/temurin-11" >> $GITHUB_ENV
         echo "PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
 
-    - name: Build Docker Image
+    - name: Set up Docker
+      uses: docker/setup-qemu-action@v1
+
+    - name: Build Docker image
       run: |
-        docker build -t ghcr.io/your-username/java-app:${{ github.sha }} -f Dockerfile .
-      env:
-        DOCKER_BUILDKIT: 1
-
+        docker build -f dockerfile -t ghcr.io/cbhavya09/cicd-python:${{ github.sha }} .
+      
     - name: Log in to GitHub Container Registry
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u your-username --password-stdin
-
-    - name: Push Docker Image to GitHub Container Registry
-      run: docker push ghcr.io/your-username/java-app:${{ github.sha }}
+      run: |
+        echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+      
+    - name: Push Docker image to GitHub Container Registry
+      run: |
+        docker push ghcr.io/cbhavya09/cicd-python:${{ github.sha }}
