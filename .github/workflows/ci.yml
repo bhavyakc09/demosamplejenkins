@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          DOCKER_IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:${{ github.sha }}
+          DOCKER_IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }}
           docker build -t $DOCKER_IMAGE_TAG .
         env:
           DOCKER_BUILDKIT: 1
@@ -31,6 +31,6 @@ jobs:
         
       - name: Push Docker Image to GitHub Container Registry
         run: |
-          DOCKER_IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:${{ github.sha }}
+          DOCKER_IMAGE_TAG=ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }}
           docker push $DOCKER_IMAGE_TAG
         
