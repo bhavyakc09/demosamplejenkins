@@ -17,13 +17,22 @@ jobs:
       run: |
         echo "JAVA_HOME=/usr/lib/jvm/temurin-11" >> $GITHUB_ENV
         echo "PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
-
+    
+    - name: Create Maven Environment File
+      run: |
+        echo "MAVEN_HOME=C:\apache-maven-3.9.2" >> maven.env
+      shell: bash
+    
+    - name: Add Maven Environment File
+      run: |
+        echo "::add-environment::$(cat maven.env)"
+      shell: bash
+    
     - name: Build JAR using Maven
       run: |
-        echo "::set-env name=MAVEN_HOME::/path/to/your/apache-maven-3.9.2"
-        echo "::add-path::\${MAVEN_HOME}/bin"
-        mvn clean package
-      
+        source maven.env
+        $MAVEN_HOME/bin/mvn clean package
+    
     - name: Log in to GitHub Container Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
     
