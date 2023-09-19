@@ -15,16 +15,15 @@ jobs:
       
     - name: Set up Java
       run: |
-        echo "JAVA_HOME=C:\Program Files\Java\jdk-11" >> $GITHUB_ENV
-        echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
-  
+        echo "JAVA_HOME=/usr/lib/jvm/temurin-11" >> $GITHUB_ENV
+        echo "PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
+
     - name: Build JAR using Maven
       run: |
-        export MAVEN_HOME="C:\apache-maven-3.9.2"
-        export PATH="$MAVEN_HOME/bin:$PATH"
+        echo "::set-env name=MAVEN_HOME::/path/to/your/apache-maven-3.9.2"
+        echo "::add-path::\${MAVEN_HOME}/bin"
         mvn clean package
       
-    
     - name: Log in to GitHub Container Registry
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
     
