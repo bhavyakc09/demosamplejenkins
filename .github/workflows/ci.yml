@@ -9,21 +9,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up Java and Maven
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'adopt'
-
-      - name: Build with Maven
-        run: C:\apache-maven-3.9.2\bin\mvn clean install
-
-      - name: Build Docker image
-        run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }} .
-          echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker push ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }}
-
+        - name: Checkout code
+          uses: actions/checkout@v2
+  
+        - name: Set up Java
+          run: |
+            echo "JAVA_HOME=C:\Program Files\Java\jdk-11" >> $GITHUB_ENV
+            echo "PATH=$JAVA_HOME/bin:$PATH" >> $GITHUB_ENV
+      
+        - name: Build with Maven
+          run: C:\apache-maven-3.9.2\bin\mvn clean install
+  
+        - name: Package the application
+          run: |
+            $outputPath = "javaapp.zip"
+            $sourcePath = "C:\Users\c.bhavya\Desktop\cicd\java-application\target\java-app-1.0-SNAPSHOT.jar"
+            Compress-Archive -Path $sourcePath -DestinationPath $outputPath
+  
+        - name: Set up Docker
+          uses: docker/setup-docker@v2
+          with:
+            docker-host: tcp://localhost:2375  # Connect to the Docker daemon
+  
+        - name: Build and push Docker image
+          run: |
+            docker build -t ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }} .
+            echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            docker push ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }}
+  
+  
+  
+  R

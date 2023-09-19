@@ -5,7 +5,7 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the JAR file (replace 'your-app.jar' with your actual JAR file)
-COPY target/javaapp.jar .
+COPY target/java-app-1.0-SNAPSHOT.jar .
 
 # Define the command to run your application
-CMD ["java", "-jar", "javaapp.jar"]
+CMD ["java", "-jar", "java-app-1.0-SNAPSHOT.jar"]
