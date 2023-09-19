@@ -7,48 +7,15 @@ on:
       - completed
 
 jobs:
-  deploy-to-ec2:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up SSH key
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      
-    - name: Determine Docker image name and container name
-      id: docker_info
-      run: |
-        repo_owner=$(echo ${{ github.repository }} | cut -d '/' -f1)
-        repo_name=$(echo ${{ github.repository }} | cut -d '/' -f2)
-        echo "::set-output name=image_name::ghcr.io/$repo_owner/$repo_name/your-image-name:latest"
-        echo "::set-output name=container_name::your-container-name"
-      
-    - name: Pull Docker image from GitHub Container Registry
-      run: docker pull ${{ steps.docker_info.outputs.image_name }}
-    
-    - name: Stop and remove existing container (if applicable)
-      run: |
-        docker stop ${{ steps.docker_info.outputs.container_name }} || true
-        docker rm ${{ steps.docker_info.outputs.container_name }} || true
-      
-    - name: Run Docker container
-      run: |
-        docker run -d --name ${{ steps.docker_info.outputs.container_name }} -p 8080:8080 ${{ steps.docker_info.outputs.image_name }}
-    
-    - name: Deploy to EC2
-      run: |
-        # Automatically fetch configuration values from secrets
-        
-        config_file_path="${{ secrets.CONFIG_FILE_PATH }}"
-        ec2_instance_ip="${{ secrets.EC2_INSTANCE_IP }}"
-        service_name="${{ secrets.SERVICE_NAME }}"
-        
-        # Example: Copy a configuration file to the EC2 instance
-        scp -i ${{ secrets.SSH_PRIVATE_KEY }} $config_file_path ec2-user@$ec2_instance_ip:/path/to/destination/
-        
-        # Example: Restart a service on the EC2 instance
-        ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ec2-user@$ec2_instance_ip "sudo systemctl restart $service_name"
+      # Add steps to deploy to your EC2 server here
+      - name: Deploy to EC2
+        run: |
+          # Add any additional deployment steps here
+          # Example: Copy configuration files, start services, etc.
