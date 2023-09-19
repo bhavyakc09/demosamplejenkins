@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -36,7 +37,3 @@ jobs:
             docker build -t ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }} .
             echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             docker push ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }}
-  
-  
-  
-  R
