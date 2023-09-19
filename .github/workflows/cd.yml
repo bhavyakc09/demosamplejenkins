@@ -17,9 +17,9 @@ jobs:
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/pytsample.pem
-          chmod 600 ~/.ssh/pytsample.pem
-          
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/javakey.pem
+          chmod 600 ~/.ssh/javakey.pem
+
       - name: Pull Docker Image
         run: |
           docker login ghcr.io -u USERNAME -p ${{ secrets.PAT_TOKEN }}
