@@ -22,10 +22,6 @@ jobs:
             
         - name: Build with Maven
           run: mvn clean install
-        
-      
-        - name: Build with Maven
-          run: C:\apache-maven-3.9.2\bin\mvn clean install
   
         - name: Package the application
           run: |
