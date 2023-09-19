@@ -18,8 +18,8 @@ jobs:
         echo "JAVA_HOME=/usr/lib/jvm/temurin-11" >> $GITHUB_ENV
         echo "PATH=\$JAVA_HOME/bin:\$PATH" >> $GITHUB_ENV
 
-    - name: Set up Docker
-      uses: docker/setup-qemu-action@v1
+    - name: Check Docker Version
+      run: docker --version
 
     - name: Build Docker image
       run: |
