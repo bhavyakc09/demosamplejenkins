@@ -21,7 +21,7 @@ jobs:
       - name: Build Java application and package
         run: |
           mvn clean package
-        working-directory: C:\Users\c.bhavya\Desktop\cicd\java-application
+        working-directory: C:\apache-maven-3.9.2\bin
 
       - name: Build Docker image
         run: |
