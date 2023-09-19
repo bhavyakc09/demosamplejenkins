@@ -27,8 +27,7 @@ jobs:
           run: |
             outputPath="javaapp.zip"
             sourcePath="C:\Users\c.bhavya\Desktop\cicd\java-application\target\java-app-1.0-SNAPSHOT.jar"
-            Compress-Archive -Path $sourcePath -DestinationPath $outputPath
-        
+            zip -r $outputPath $sourcePath
   
         - name: Set up Docker
           uses: docker/setup-qemu-action@v1
