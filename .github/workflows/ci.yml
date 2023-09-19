@@ -28,12 +28,24 @@ jobs:
             Compress-Archive -Path $sourcePath -DestinationPath $outputPath
   
         - name: Set up Docker
-          uses: docker/setup-docker@v2
-          with:
-            docker-host: tcp://localhost:2375  # Connect to the Docker daemon
-  
-        - name: Build and push Docker image
+          uses: docker/setup-qemu-action@v1
+
+        - name: Create Dockerfile
+          run: |
+            echo "FROM openjdk:11" > Dockerfile
+            echo "COPY javaapp.zip /app/" >> Dockerfile
+            echo "WORKDIR /app" >> Dockerfile
+            echo "RUN unzip javaapp.zip" >> Dockerfile
+    
+        - name: Build Docker image
           run: |
             docker build -t ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }} .
+          
+        - name: Log in to GitHub Container Registry
+          run: |
             echo "${{ secrets.PAT_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          
+        - name: Push Docker image to GitHub Container Registry
+          run: |
             docker push ghcr.io/${{ github.repository_owner }}/java-app:${{ github.sha }}
+            
