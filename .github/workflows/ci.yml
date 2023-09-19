@@ -31,13 +31,6 @@ jobs:
         
         - name: Set up Docker
           uses: docker/setup-qemu-action@v1
-
-        - name: Create Dockerfile
-          run: |
-            echo "FROM openjdk:11" > Dockerfile
-            echo "COPY javaapp.zip /app/" >> Dockerfile
-            echo "WORKDIR /app" >> Dockerfile
-            echo "RUN unzip javaapp.zip" >> Dockerfile
     
         - name: Build Docker image
           run: |
