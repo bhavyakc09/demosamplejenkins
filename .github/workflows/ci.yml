@@ -18,10 +18,8 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
 
-      - name: Build Java application and package
-        run: |
-          mvn clean package
-        working-directory: C:\apache-maven-3.9.2\bin
+      - name: Build with Maven
+        run: C:\apache-maven-3.9.2\bin\mvn clean install
 
       - name: Build Docker image
         run: |
