@@ -5,7 +5,8 @@ FROM openjdk:11
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY ./target/myapp-1.0.jar ./app
+# COPY ./target/myapp-1.0.jar ./app
+COPY ./target/myapp-1.0.jar ./app/myapp-1.0.jar
 
 # Expose the port your application will run on (adjust as needed)
 EXPOSE 8080
