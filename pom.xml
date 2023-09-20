@@ -11,25 +11,27 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-</project>
 
-<!-- Docker Plugin Configuration -->
-<plugin>
-    <groupId>com.spotify</groupId>
-    <artifactId>dockerfile-maven-plugin</artifactId>
-    <version>1.4.10</version>
-    <executions>
-        <execution>
-            <id>default</id>
-            <goals>
-                <goal>build</goal>
-            </goals>
-        </execution>
-    </executions>
-    <configuration>
-        <buildArgs>
-            <JAR_FILE>target/java-app-1.0-${project.version}.jar</JAR_FILE>
-        </buildArgs>
-    </configuration>
-</plugin>
+    <plugins>
+        <plugin>
+            <groupId>com.spotify</groupId>
+            <artifactId>dockerfile-maven-plugin</artifactId>
+            <version>1.4.10</version>
+            <executions>
+                <execution>
+                    <id>default</id>
+                    <goals>
+                        <goal>build</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <buildArgs>
+                    <JAR_FILE>target/java-app-1.0-${project.version}.jar</JAR_FILE>
+                </buildArgs>
+            </configuration>
+        </plugin>
+    </plugins>
+    
+</project>
 
