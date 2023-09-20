@@ -1,71 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.example</groupId>
-    <artifactId>app</artifactId>
-    <version>1.0.0</version>
 
-    <!-- Define project properties, dependencies, and plugins as needed -->
+    <groupId>com.example</groupId>
+    <artifactId>java-app</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
-
-    <dependencies>
-      <!-- Jakarta EE Servlet API -->
-      <dependency>
-        <groupId>jakarta.servlet</groupId>
-        <artifactId>jakarta.servlet-api</artifactId>
-        <version>4.0.2</version>
-        <scope>compile</scope> <!-- Ensure the scope is 'compile' -->
-      </dependency>
-
-      <!-- Jakarta EE JSP API -->
-      <dependency>
-        <groupId>jakarta.servlet.jsp</groupId>
-        <artifactId>jakarta.servlet.jsp-api</artifactId>
-        <version>3.1.1</version>
-        <scope>compile</scope> <!-- Ensure the scope is 'compile' -->
-      </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <!-- Maven Compiler Plugin Configuration -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <source>11</source>
-                    <target>11</target>
-                </configuration>
-            </plugin>
-
-            <!-- Docker Plugin Configuration -->
-            <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>1.4.10</version>
-                <executions>
-                    <execution>
-                        <id>default</id>
-                        <goals>
-                            <goal>build</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <repository>your-docker-repo/app</repository>
-                    <tag>${project.version}</tag>
-                    <buildArgs>
-                        <JAR_FILE>target/app-${project.version}.jar</JAR_FILE>
-                    </buildArgs>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
+
+<!-- Docker Plugin Configuration -->
+<plugin>
+    <groupId>com.spotify</groupId>
+    <artifactId>dockerfile-maven-plugin</artifactId>
+    <version>1.4.10</version>
+    <executions>
+        <execution>
+            <id>default</id>
+            <goals>
+                <goal>build</goal>
+            </goals>
+        </execution>
+    </executions>
+    <configuration>
+        <buildArgs>
+            <JAR_FILE>target/java-app-1.0-${project.version}.jar</JAR_FILE>
+        </buildArgs>
+    </configuration>
+</plugin>
+
