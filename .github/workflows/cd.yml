@@ -17,8 +17,8 @@ jobs:
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/javakey.pem
-          chmod 600 ~/.ssh/javakey.pem
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/DEPLOY.pem
+          chmod 600 ~/.ssh/DEPLOY.pem
 
       - name: Log in to GitHub Container Registry
         run: |
