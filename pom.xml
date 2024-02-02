@@ -9,7 +9,7 @@
     <distributionManagement>
         <repository>
             <id>my-internal-repo</id>
-            <url>http://172.31.11.76:8080/job/pipeline%20maven%20proj/</url>
+            <url>http://172.31.11.76:8080/job/deploy/</url>
         </repository>
     </distributionManagement>
          
