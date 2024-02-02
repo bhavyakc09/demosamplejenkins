@@ -9,10 +9,10 @@
     <distributionManagement>
         <repository>
             <id>my-internal-repo</id>
-            <url>http://172.31.11.76:8080/job/deploy/</url>
+            <url>http://172.31.11.76:8080/repository/internal/</url>
         </repository>
     </distributionManagement>
-         
+    
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
