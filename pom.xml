@@ -5,6 +5,7 @@
     <groupId>com.example</groupId>
     <artifactId>myapp</artifactId>
     <version>1.0</version>
+    <url>https://github.com/bhavyakc09/demosamplejenkins</url>
 
     <distributionManagement>
         <repository>
@@ -12,10 +13,12 @@
             <url>http://localhost:8080/repository/internal/</url>
         </repository>
     </distributionManagement>
-    
+
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.plugin.version>3.10.8</maven.compiler.plugin.version>
+        <maven.jar.plugin.version>3.3.0</maven.jar.plugin.version>
     </properties>
 
     <build>
@@ -23,15 +26,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.1</version> <!-- Adjust the version if needed -->
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -43,13 +47,21 @@
         </plugins>
     </build>
 
+    <developers>
+        <developer>
+            <name>Bhavya</name>
+            <email>bhavyakc04@gmail.com</email>
+        </developer>
+        <!-- Add more developers if applicable -->
+    </developers>
+
     <dependencies>
         <!-- Jakarta EE Servlet API -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>4.0.2</version>
-            <scope>provided</scope> <!-- Use 'provided' scope for Servlet API -->
+            <scope>provided</scope>
         </dependency>
 
         <!-- Jakarta EE JSP API -->
@@ -57,7 +69,7 @@
             <groupId>jakarta.servlet.jsp</groupId>
             <artifactId>jakarta.servlet.jsp-api</artifactId>
             <version>3.1.1</version>
-            <scope>provided</scope> <!-- Use 'provided' scope for JSP API -->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
